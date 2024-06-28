@@ -1,6 +1,6 @@
 package com.sp.uxpulse
 
-class test {
+class Test {
     fun print(){
         println("Hello from UxPulse")
     }

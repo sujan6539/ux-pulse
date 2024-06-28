@@ -1,7 +1,14 @@
+import java.util.Properties
+
 plugins {
-    alias(libs.plugins.android.library)
-    alias(libs.plugins.jetbrains.kotlin.android)
+    id("com.android.library")
+    id("org.jetbrains.kotlin.android")
+    id("maven-publish")
 }
+
+// Read local.properties file
+val localProps = Properties()
+localProps.load(rootProject.file("local.properties").inputStream())
 
 android {
     namespace = "com.sp.uxpulse"
@@ -44,3 +51,33 @@ dependencies {
 
 group = "com.github.sujan6539"
 version = "1.0.0"
+
+
+afterEvaluate {
+    publishing {
+        publications {
+            create<MavenPublication>("release") {
+                from(components["release"])
+                groupId = "com.github.sujan6539"
+                artifactId = "ux-pulse"
+                version = version
+            }
+        }
+    }
+}
+
+// Ensure proper repositories configuration
+publishing {
+    repositories {
+        mavenLocal() // For local publishing
+        maven {
+            url = uri("https://jitpack.io")
+            credentials {
+                println(localProps.getProperty("GITHUB_USERNAME"))
+                println(localProps.getProperty("GITHUB_TOKEN"))
+                username = localProps.getProperty("GITHUB_USERNAME") // or use your GitHub username directly
+                password = localProps.getProperty("GITHUB_TOKEN") ?: ""// or use your GitHub personal access token
+            }
+        }
+    }
+}
