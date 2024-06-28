@@ -41,3 +41,6 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 }
+
+group = "com.github.sujan6539"
+version = "1.0.0"
