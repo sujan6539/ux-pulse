@@ -73,8 +73,6 @@ publishing {
         maven {
             url = uri("https://jitpack.io")
             credentials {
-                println(localProps.getProperty("GITHUB_USERNAME"))
-                println(localProps.getProperty("GITHUB_TOKEN"))
                 username = localProps.getProperty("GITHUB_USERNAME") // or use your GitHub username directly
                 password = localProps.getProperty("GITHUB_TOKEN") ?: ""// or use your GitHub personal access token
             }
