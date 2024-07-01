@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "121776663815",
+    "project_id": "uxpulse-7a742",
+    "storage_bucket": "uxpulse-7a742.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:121776663815:android:5eab47495fcbc3238e69a2",
+        "android_client_info": {
+          "package_name": "com.sp.uxpulsedemo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCc3irpxAdo9173WhNK7KqfTaDPNLum35M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,66 @@
+{
+  "product": [
+    {
+      "screenName": "First activity",
+      "ui": [
+        {
+          "sdfasd": "asdfasdf",
+          "asdfasdf": "asdfadf",
+          "asdasfadf": "asdfadsf"
+        }
+      ]
+    },
+    {
+      "screenName": "second activity",
+      "ui": [
+        {
+          "sdfsdasd": "asdfasdf"
+        }
+      ]
+    },
+    {
+      "screenName": "third activity - f1",
+      "ui": [
+        {
+          "sdfasd": "asdfasdf",
+          "sdfasdasd": "asdfasdf",
+          "asd": "asdfasdf",
+          "adsf": "asdfasdf",
+          "asdfd": "asdfasdf"
+        }
+      ]
+    }
+  ],
+  "commerce": [
+    {
+      "screenName": "First activity",
+      "ui": [
+        {
+          "sdfasd": "asdfasdf",
+          "asdfasdf": "asdfadf",
+          "asdasfadf": "asdfadsf"
+        }
+      ]
+    },
+    {
+      "screenName": "second activity",
+      "ui": [
+        {
+          "sdfsdasd": "asdfasdf"
+        }
+      ]
+    },
+    {
+      "screenName": "third activity - f1",
+      "ui": [
+        {
+          "sdfasd": "asdfasdf",
+          "sdfasdasd": "asdfasdf",
+          "asd": "asdfasdf",
+          "adsf": "asdfasdf",
+          "asdfd": "asdfasdf"
+        }
+      ]
+    }
+  ]
+}

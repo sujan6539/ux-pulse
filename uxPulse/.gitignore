@@ -1,1 +1,36 @@
 /build
+
+
+# Android Studio
+.idea
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+/.idea/tasks.xml
+/.idea/caches
+/.idea/modules.xml
+/.idea/assetWizardSettings.xml
+/.idea/gradle.xml
+/.idea/dictionaries
+/.idea/httpRequests
+
+
+# Gradle files
+.gradle/
+build/
+*/build/
+**/build/
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+
+# IntelliJ
+*.iml
+*.ipr
+*.iws
+/out/
+
+# MacOS
+.DS_Store
