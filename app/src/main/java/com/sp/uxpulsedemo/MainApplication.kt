@@ -27,7 +27,7 @@ class MainApplication : Application() {
             version = "1.0.0"
         )
 
-
+        FirebaseApp.initializeApp(this);
         usPulseTracker = UxPulseProvider.initialize(
             applicationSession,
             uxPulseConfig,

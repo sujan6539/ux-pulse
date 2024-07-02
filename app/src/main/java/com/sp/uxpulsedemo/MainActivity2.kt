@@ -1,12 +1,12 @@
 package com.sp.uxpulsedemo
 
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
+import com.google.android.material.snackbar.Snackbar
 import com.sp.uxpulsedemo.databinding.ActivityMain2Binding
 
 class MainActivity2 : AppCompatActivity() {
@@ -31,7 +31,6 @@ class MainActivity2 : AppCompatActivity() {
                 .setAction("Action", null)
                 .setAnchorView(R.id.fab).show()
         }
-        (applicationContext as MainApplication).usPulseTracker.trackScreenViewEvent("second Activity")
     }
 
     override fun onSupportNavigateUp(): Boolean {

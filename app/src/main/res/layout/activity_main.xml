@@ -11,6 +11,7 @@
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="16dp"
         tools:context=".MainActivity">
 
         <Button
@@ -23,16 +24,25 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <Button
+            android:id="@+id/btn_go_to_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="go to third"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_go_to" />
+
 
         <Button
             android:id="@+id/btn_start_session"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="StartSession"
-            app:layout_constraintBottom_toTopOf="@id/btn_stop_session"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btn_stop_session"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_go_to" />
+            app:layout_constraintTop_toTopOf="@+id/btn_stop_session" />
 
 
         <Button
@@ -41,9 +51,7 @@
             android:layout_height="wrap_content"
             android:text="Stop Session"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_start_session" />
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

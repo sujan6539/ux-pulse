@@ -1,6 +1,8 @@
 package com.sp.uxpulse.analytics
 
+import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Locale
 import java.util.concurrent.TimeUnit
 
 internal object TimeZone {
@@ -12,12 +14,21 @@ internal object TimeZone {
     val TIMESTAMP_TIMEZONE_OFFSET: String
 
     init {
+        TIMESTAMP_TIMEZONE_OFFSET = getCurrentTimestampWithTimezoneOffset()
+    }
+
+    private fun getCurrentTimestampWithTimezoneOffset(): String {
         val cal: Calendar = Calendar.getInstance()
-        TIMESTAMP_TIMEZONE_OFFSET = (
-                "00/00/0000 00:00:00 0 "
-                        + TimeUnit.MILLISECONDS.toMinutes(
-                    (cal.get(Calendar.ZONE_OFFSET) * -1).toLong()
-                            - cal.get(Calendar.DST_OFFSET)
-                ))
+        val dateFormat = SimpleDateFormat("MM/dd/yyyy HH:mm:ss", Locale.getDefault())
+
+        // Get the current date and time
+        val currentDateTime = dateFormat.format(cal.time)
+
+        // Calculate the timezone offset in minutes
+        val offsetInMillis = (cal.get(Calendar.ZONE_OFFSET) * -1).toLong() - cal.get(Calendar.DST_OFFSET)
+        val offsetInMinutes = TimeUnit.MILLISECONDS.toMinutes(offsetInMillis)
+
+        // Format the current date and time with the timezone offset
+        return "$currentDateTime $offsetInMinutes"
     }
 }

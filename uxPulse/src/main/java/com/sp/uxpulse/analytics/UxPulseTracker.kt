@@ -2,19 +2,19 @@ package com.sp.uxpulse.analytics
 
 import DatabaseManager
 import android.app.Application
+import android.content.Context
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.os.Build
 import android.util.Log
 import com.sp.uxpulse.analytics.TimeZone.TIMESTAMP_TIMEZONE_OFFSET
+import com.sp.uxpulse.breadcrumbs.Breadcrumb
+import com.sp.uxpulse.breadcrumbs.BreadcrumbManager
 import com.sp.uxpulse.event.Event
 import com.sp.uxpulse.event.Event.Companion.CLICK_EVENT
 import com.sp.uxpulse.event.Event.Companion.SCREEN_VIEW_EVENT
 import com.sp.uxpulse.middleware.EventProcessor
 import com.sp.uxpulse.session.SessionManager
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 
 class UxPulseTracker private constructor(
@@ -54,11 +54,20 @@ class UxPulseTracker private constructor(
         deviceInfo = mutableDeviceInfo
         initializeSessionManager(applicationSession);
 
-        if(!config.instantPushEvent){
+        if (!config.instantPushEvent) {
             DatabaseManager.getInstance(applicationSession.getApplicationContext())
         }
+        val timeZone = TimeZone.TIMESTAMP_TIMEZONE_OFFSET
+        eventProcessor =
+            EventProcessor.getInstance(applicationSession.getApplicationContext(), config)
+        eventProcessor.processEvent(
+            Event(
+                AutomaticEvents.FIRST_OPEN,
+                TIMESTAMP_TIMEZONE_OFFSET,
+                mapOf()
+            )
+        )
 
-        eventProcessor = EventProcessor.getInstance(applicationSession.getApplicationContext(), config)
     }
 
 
@@ -75,7 +84,7 @@ class UxPulseTracker private constructor(
             Event(
                 state,
                 TIMESTAMP_TIMEZONE_OFFSET,
-                contextData?: mapOf()
+                contextData ?: mapOf()
             )
         )
 
@@ -87,18 +96,29 @@ class UxPulseTracker private constructor(
             Event(
                 action,
                 TIMESTAMP_TIMEZONE_OFFSET,
-                contextData?: mapOf()
+                contextData ?: mapOf()
             )
         )
     }
 
-    fun trackScreenViewEvent(screenName: String) {
-        val additionalContext = mapOf(
-            "screenName" to screenName
+    fun trackScreenViewEvent(context: Context, screenName: String) {
+        BreadcrumbManager.instance?.addBreadcrumb(
+            Breadcrumb(
+                context::class.java.simpleName,
+                screenName
+            )
         )
-        val event = Event(SCREEN_VIEW_EVENT, TIMESTAMP_TIMEZONE_OFFSET, additionalContext)
-        eventProcessor.processEvent(event)
 
+        val additionalContext = mapOf(
+            "screenName" to screenName,
+            "breadCrumb" to (BreadcrumbManager.instance?.getBreadcrumbs()
+                ?.joinToString(separator = " | ") { it.screenName } ?:"")
+        )
+
+        val time = TIMESTAMP_TIMEZONE_OFFSET
+        val event = Event(SCREEN_VIEW_EVENT, time, additionalContext)
+
+        eventProcessor.processEvent(event)
     }
 
     fun trackClickEvent(buttonId: String, screenName: String) {

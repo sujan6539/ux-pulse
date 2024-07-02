@@ -25,8 +25,8 @@ data class Event(
 
     companion object {
 
-        const val CLICK_EVENT = "ClickEvent"
-        const val SCREEN_VIEW_EVENT = "ScreenViewEvent"
+        const val CLICK_EVENT = "click_event"
+        const val SCREEN_VIEW_EVENT = "screen_view_event"
 
         // Method to create Event object from JSON
         fun fromJson(jsonObject: JSONObject): Event {

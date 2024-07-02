@@ -1,12 +1,12 @@
 package com.sp.uxpulse.network
 
-import com.sp.uxpulse.event.Event
+import com.sp.uxpulse.storage.EventModel
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.POST
 
 interface AnalyticsService {
 
-    @POST("analytics/events")
-    fun sendEvent(@Body event: Event): Call<Void>
+    @POST("events.json")
+    fun sendEvent(@Body event: List<EventModel>?): Call<Void?>
 }

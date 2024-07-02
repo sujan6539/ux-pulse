@@ -18,9 +18,7 @@ import kotlinx.coroutines.tasks.await
 import java.util.concurrent.TimeUnit
 
 
-class EventProcessor private constructor(val appContext: Context, val config: UxPulseConfig) {
-    private val mInstanceName: String? = null
-
+class EventProcessor private constructor(private val appContext: Context, private val config: UxPulseConfig) {
 
     private val databaseManager: DatabaseManager by lazy {
         DatabaseManager.getInstance(appContext)

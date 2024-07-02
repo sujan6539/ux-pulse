@@ -1,21 +1,12 @@
 package com.sp.uxpulsedemo
 
-import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
-import android.renderscript.ScriptGroup.Binding
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.databinding.DataBindingUtil
-import com.google.firebase.BuildConfig
-import com.google.firebase.analytics.FirebaseAnalytics
-import com.sp.uxpulse.analytics.ApplicationSession
-import com.sp.uxpulse.analytics.UxPulseConfig
-import com.sp.uxpulse.analytics.UxPulseProvider
-import com.sp.uxpulse.analytics.UxPulseTracker
 import com.sp.uxpulsedemo.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -32,8 +23,14 @@ class MainActivity : AppCompatActivity() {
 
 
         activityMainBinding.btnGoTo.setOnClickListener {
-            (applicationContext as MainApplication).usPulseTracker.trackClickEvent("go to second clicked", "main Activity")
+            (applicationContext as MainApplication).usPulseTracker.trackClickEvent("go to second clicked", "Home")
             startActivity(Intent(this@MainActivity, MainActivity2::class.java))
+
+        }
+
+        activityMainBinding.btnGoTo3.setOnClickListener {
+            (applicationContext as MainApplication).usPulseTracker.trackClickEvent("go to third clicked", "Home")
+            startActivity(Intent(this@MainActivity, MainActivity3::class.java))
 
         }
 
@@ -45,6 +42,6 @@ class MainActivity : AppCompatActivity() {
             (applicationContext as MainApplication).usPulseTracker.endSession()
         }
 
-        (applicationContext as MainApplication).usPulseTracker.trackScreenViewEvent("main Activity")
+        (applicationContext as MainApplication).usPulseTracker.trackScreenViewEvent(this,"Home")
     }
 }
