@@ -1,4 +1,4 @@
-package com.sp.uxpulse.analytics
+package com.sp.uxpulse.utils
 
 import java.text.SimpleDateFormat
 import java.util.Calendar

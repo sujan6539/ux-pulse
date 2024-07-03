@@ -1,4 +1,4 @@
-package com.sp.uxpulse
+package com.sp.uxpulse.utils
 
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject

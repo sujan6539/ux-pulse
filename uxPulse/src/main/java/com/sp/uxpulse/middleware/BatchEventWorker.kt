@@ -3,7 +3,7 @@ package com.sp.uxpulse.middleware
 import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
-import com.sp.uxpulse.mapToJsonObject
+import com.sp.uxpulse.utils.mapToJsonObject
 import com.sp.uxpulse.network.NetworkManager
 import com.sp.uxpulse.storage.AnalyticsDatabase
 import com.sp.uxpulse.storage.EventModel
@@ -28,13 +28,11 @@ class BatchEventWorker(
             // Send batch data to the server
             val success = sendBatchToServer(batch)
             if (success) {
-                println("success")
                 // Delete sent events from the database
                 eventDao.deleteEvents(batch.map {
                     it.id
                 })
             } else {
-                println("failure")
                 // Handle failure (e.g., retry later)
                 return Result.retry()
             }

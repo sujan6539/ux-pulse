@@ -2,7 +2,6 @@ package com.sp.uxpulse.analytics
 
 import DatabaseManager
 import android.app.Application
-import com.sp.uxpulse.analytics.TimeZone.TIMESTAMP_TIMEZONE_OFFSET
 import com.sp.uxpulse.breadcrumbs.Breadcrumb
 import com.sp.uxpulse.breadcrumbs.BreadcrumbManager
 import com.sp.uxpulse.middleware.EventProcessor
@@ -11,11 +10,12 @@ import com.sp.uxpulse.payload.EventType
 import com.sp.uxpulse.payload.StateAction
 import com.sp.uxpulse.payload.TrackAction
 import com.sp.uxpulse.session.SessionManager
+import com.sp.uxpulse.utils.TimeZone.TIMESTAMP_TIMEZONE_OFFSET
 
 
 class UxPulseTracker private constructor(
     applicationSession: ApplicationSession,
-    private var config: UxPulseConfig,
+    config: UxPulseConfig,
 ) {
 
     private var sessionManager: SessionManager? = null

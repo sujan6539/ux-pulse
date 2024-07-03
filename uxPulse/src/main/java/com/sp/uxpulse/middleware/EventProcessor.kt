@@ -8,12 +8,12 @@ import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import com.sp.uxpulse.analytics.UxPulseConfig
-import com.sp.uxpulse.mapToJsonObject
+import com.sp.uxpulse.utils.mapToJsonObject
 import com.sp.uxpulse.network.NetworkManager
 import com.sp.uxpulse.payload.BasePayload
 import com.sp.uxpulse.payload.DevicePayload
 import com.sp.uxpulse.payload.TrackAction.Companion.KEY_EVENT
-import com.sp.uxpulse.searchInMap
+import com.sp.uxpulse.utils.searchInMap
 import com.sp.uxpulse.storage.EventEntity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

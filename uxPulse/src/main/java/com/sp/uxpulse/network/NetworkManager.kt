@@ -9,7 +9,6 @@ import retrofit2.Response
 
 object NetworkManager {
 
-
     suspend fun dispatch(batch: List<JsonObject>): Boolean {
         val service = AnalyticsClient.analyticsService.sendEvent(batch)
         val deferred = CompletableDeferred<Boolean>()
