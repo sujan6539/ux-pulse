@@ -7,6 +7,7 @@ import com.sp.uxpulse.analytics.ApplicationSession
 import com.sp.uxpulse.analytics.UxPulseConfig
 import com.sp.uxpulse.analytics.UxPulseProvider
 import com.sp.uxpulse.analytics.UxPulseTracker
+import java.util.UUID
 
 class MainApplication : Application() {
     lateinit var usPulseTracker: UxPulseTracker
@@ -21,17 +22,17 @@ class MainApplication : Application() {
 
         }
 
-        val uxPulseConfig =  UxPulseConfig(
+        val uxPulseConfig = UxPulseConfig(
             apiKey = "asdfadf@#asdffsdfa",
             projectId = applicationContext.packageName,
-            version = "1.0.0"
+            version = "1.0.0",
+            instanceId = UUID.randomUUID().toString()
         )
 
         FirebaseApp.initializeApp(this);
         usPulseTracker = UxPulseProvider.initialize(
             applicationSession,
             uxPulseConfig,
-            instanceName = "asdkfjasdf"
         )
     }
 }

@@ -1,6 +1,6 @@
 package com.sp.uxpulse.network
 
-import com.sp.uxpulse.storage.EventModel
+import com.google.gson.JsonObject
 import kotlinx.coroutines.CompletableDeferred
 import retrofit2.Call
 import retrofit2.Callback
@@ -10,7 +10,7 @@ import retrofit2.Response
 object NetworkManager {
 
 
-    suspend fun dispatch(batch: List<EventModel>): Boolean {
+    suspend fun dispatch(batch: List<JsonObject>): Boolean {
         val service = AnalyticsClient.analyticsService.sendEvent(batch)
         val deferred = CompletableDeferred<Boolean>()
         service.enqueue(object : Callback<Void?> {

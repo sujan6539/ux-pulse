@@ -1,6 +1,5 @@
 
 import android.content.Context
-import com.sp.uxpulse.event.Event
 import com.sp.uxpulse.storage.AnalyticsDatabase
 import com.sp.uxpulse.storage.EventDao
 import com.sp.uxpulse.storage.EventEntity
@@ -17,34 +16,10 @@ class DatabaseManager private constructor(context: Context) {
 
 
     // Function to insert an event into the database
-    fun insertEvent(event: Event) {
-        val eventEntity = EventEntity(
-            eventName = event.eventName,
-            timestamp = event.timestamp,
-            additionalContext = JSONObject(event.additionalContext).toString()
-        )
-
+    fun insertEvent(eventEntity: EventEntity) {
         // Use IO dispatcher for database operations
         CoroutineScope(Dispatchers.IO).launch {
             eventDao.insert(eventEntity)
-        }
-    }
-
-    // Function to get all events from the database
-    fun getAllEvents(callback: (List<Event>) -> Unit) {
-        CoroutineScope(Dispatchers.IO).launch {
-            val eventEntities = eventDao.getEvents(100)
-            val events = eventEntities.map { entity ->
-                Event(
-                    eventName = entity.eventName,
-                    timestamp = entity.timestamp,
-                    additionalContext = JSONObject(entity.additionalContext).toMap()
-                )
-            }
-            // Post results to the main thread
-            CoroutineScope(Dispatchers.Main).launch {
-                callback(events)
-            }
         }
     }
 

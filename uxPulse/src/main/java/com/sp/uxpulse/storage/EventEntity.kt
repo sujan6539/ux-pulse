@@ -8,5 +8,5 @@ data class EventEntity(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val eventName: String,
     val timestamp: String,
-    val additionalContext: String // Store as JSON string
+    val additionalContext: Map<String, Any> // Store as JSON string
 )

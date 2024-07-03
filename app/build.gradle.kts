@@ -65,4 +65,9 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     implementation("com.google.firebase:firebase-analytics:22.0.2")
+
+    implementation(platform("com.adobe.marketing.mobile:sdk-bom:3.+"))
+    implementation("com.adobe.marketing.mobile:core")
+    implementation("com.adobe.marketing.mobile:identity")
+    implementation("com.adobe.marketing.mobile:analytics")
 }

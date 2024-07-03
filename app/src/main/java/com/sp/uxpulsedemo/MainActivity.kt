@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
 
         activityMainBinding.btnGoTo3.setOnClickListener {
             (applicationContext as MainApplication).usPulseTracker.trackClickEvent("go to third clicked", "Home")
-            startActivity(Intent(this@MainActivity, MainActivity3::class.java))
+            startActivity(Intent(this@MainActivity, MainActivity1a::class.java))
 
         }
 
@@ -42,6 +42,6 @@ class MainActivity : AppCompatActivity() {
             (applicationContext as MainApplication).usPulseTracker.endSession()
         }
 
-        (applicationContext as MainApplication).usPulseTracker.trackScreenViewEvent(this,"Home")
+        (applicationContext as MainApplication).usPulseTracker.trackScreenViewEvent("Home", this::class.java.simpleName,)
     }
 }

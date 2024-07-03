@@ -23,10 +23,10 @@ class MainActivity4 : AppCompatActivity() {
 
 
         }
-        (applicationContext as MainApplication).usPulseTracker.trackScreenViewEvent(this,"Check out")
+        (applicationContext as MainApplication).usPulseTracker.trackScreenViewEvent("Check out", this::class.java.simpleName,)
         activityMain4Binding.btnGoTo.setOnClickListener {
             (applicationContext as MainApplication).usPulseTracker.trackClickEvent("Checkout Confirmed","Check out")
-            startActivity(Intent(this@MainActivity4, MainActivity2::class.java).apply {
+            startActivity(Intent(this@MainActivity4, MainActivity::class.java).apply {
                 setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             })
         }

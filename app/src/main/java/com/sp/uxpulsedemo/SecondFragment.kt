@@ -1,11 +1,11 @@
 package com.sp.uxpulsedemo
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import com.sp.uxpulsedemo.databinding.FragmentSecondBinding
 
 /**
@@ -19,17 +19,20 @@ class SecondFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        (activity?.applicationContext as? MainApplication)?.usPulseTracker?.trackScreenViewEvent(
+            "Second fragment",
+            this::class.java.simpleName,
+        )
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
 
         _binding = FragmentSecondBinding.inflate(inflater, container, false)
-
-        activity?.apply {
-            (applicationContext as? MainApplication)?.usPulseTracker?.trackScreenViewEvent(this, "Second fragment")
-        }
-
         return binding.root
 
     }
@@ -38,9 +41,13 @@ class SecondFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.buttonSecond.setOnClickListener {
-            (view.context.applicationContext as? MainApplication)?.usPulseTracker?.trackClickEvent( "BTN Send", "Second Fragment")
-            findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
+            (view.context.applicationContext as? MainApplication)?.usPulseTracker?.trackClickEvent(
+                "BTN Send",
+                "Second Fragment"
+            )
+            startActivity(Intent(activity, MainActivity1a::class.java))
         }
+
     }
 
     override fun onDestroyView() {

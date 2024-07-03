@@ -21,5 +21,5 @@ data class EventModel(
     val id: Int,
     val eventName: String,
     val timestamp: String,
-    val additionalContext: String,
+    val additionalContext: Map<String, Any>,
 )

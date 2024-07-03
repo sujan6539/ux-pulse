@@ -5,6 +5,7 @@ import android.app.Application
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import com.sp.uxpulse.analytics.AutomaticEvents
 import com.sp.uxpulse.analytics.AutomaticEvents.SESSION_PAUSED_LENGTH
@@ -43,8 +44,10 @@ class SessionManager(private val tracker: UxPulseTracker) :
         }
     }
 
-    override fun onActivityCreated(p0: Activity, p1: Bundle?) {
-
+    override fun onActivityCreated(activity: Activity, p1: Bundle?) {
+        if (activity is FragmentActivity) {
+            activity.supportFragmentManager.registerFragmentLifecycleCallbacks(this, true)
+        }
     }
 
     override fun onActivityStarted(p0: Activity) {

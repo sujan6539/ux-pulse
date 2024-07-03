@@ -21,11 +21,11 @@ class MainActivity1a : AppCompatActivity() {
             insets
         }
 
-        (applicationContext as MainApplication).usPulseTracker.trackScreenViewEvent(this,"Explore")
+        (applicationContext as MainApplication).usPulseTracker.trackScreenViewEvent("Explore", this::class.java.simpleName,)
 
         activityMainActivity1aBinding.btnGoTo.setOnClickListener {
             (applicationContext as MainApplication).usPulseTracker.trackClickEvent("Done","Explore")
-            startActivity(Intent(this@MainActivity1a, MainActivity4::class.java))
+            startActivity(Intent(this@MainActivity1a, MainActivity3::class.java))
         }
     }
 }

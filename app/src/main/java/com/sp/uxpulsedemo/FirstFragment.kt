@@ -19,20 +19,23 @@ class FirstFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        (activity?.applicationContext as? MainApplication)?.usPulseTracker?.trackScreenViewEvent(
+            "First fragment",
+            this::class.java.simpleName,
+        )
+
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
 
         _binding = FragmentFirstBinding.inflate(inflater, container, false)
-
-        activity?.apply {
-            (applicationContext as? MainApplication)?.usPulseTracker?.trackScreenViewEvent(this, "First fragment")
-        }
-
         return binding.root
-
-
 
     }
 
@@ -40,7 +43,10 @@ class FirstFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.buttonFirst.setOnClickListener {
-            (view.context.applicationContext as? MainApplication)?.usPulseTracker?.trackClickEvent( "BTN First", "First Fragment")
+            (view.context.applicationContext as? MainApplication)?.usPulseTracker?.trackClickEvent(
+                "BTN F",
+                "First Fragment"
+            )
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
 
         }
