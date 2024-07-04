@@ -4,13 +4,16 @@ import DatabaseManager
 import android.app.Application
 import com.sp.uxpulse.breadcrumbs.Breadcrumb
 import com.sp.uxpulse.breadcrumbs.BreadcrumbManager
+import com.sp.uxpulse.di.DaggerLibAppComponent
+import com.sp.uxpulse.di.LibAppComponent
+import com.sp.uxpulse.di.LibAppModule
 import com.sp.uxpulse.middleware.EventProcessor
-import com.sp.uxpulse.payload.DevicePayload
 import com.sp.uxpulse.payload.EventType
 import com.sp.uxpulse.payload.StateAction
 import com.sp.uxpulse.payload.TrackAction
 import com.sp.uxpulse.session.SessionManager
 import com.sp.uxpulse.utils.TimeZone.TIMESTAMP_TIMEZONE_OFFSET
+import javax.inject.Inject
 
 
 class UxPulseTracker private constructor(
@@ -19,25 +22,29 @@ class UxPulseTracker private constructor(
 ) {
 
     private var sessionManager: SessionManager? = null
-    private var eventProcessor: EventProcessor
-    private var devicePayload: DevicePayload
+
+    @Inject
+    lateinit var eventProcessor: EventProcessor
+
+    private var appComponent: LibAppComponent
 
 
     init {
 
-        initializeSessionManager(applicationSession);
+        attachLifecycleToSession(applicationSession)
+
+        appComponent = DaggerLibAppComponent.builder().libAppModule(
+            LibAppModule(applicationSession.getApplicationContext(), config)
+        ).build()
+
+        appComponent.inject(this)
+
 
         if (!config.instantPushEvent) {
             DatabaseManager.getInstance(applicationSession.getApplicationContext())
         }
-        devicePayload = DevicePayload(applicationSession, config)
 
-        eventProcessor =
-            EventProcessor.getInstance(
-                applicationSession.getApplicationContext(),
-                config,
-                devicePayload
-            )
+        attachLifecycleToSession(applicationSession)
         eventProcessor.processEvent(
             StateAction(
                 type = EventType.Track(AutomaticEvents.FIRST_OPEN),
@@ -120,11 +127,10 @@ class UxPulseTracker private constructor(
 
     }
 
-    private fun initializeSessionManager(applicationSession: ApplicationSession) {
+    private fun attachLifecycleToSession(applicationSession: ApplicationSession) {
         val app: Application? = applicationSession.getApplicationContext() as? Application
         sessionManager = SessionManager(this)
         app?.registerActivityLifecycleCallbacks(sessionManager)
-
     }
 
 

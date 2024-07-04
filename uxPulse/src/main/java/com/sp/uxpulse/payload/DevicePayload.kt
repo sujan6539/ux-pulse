@@ -6,27 +6,26 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.util.DisplayMetrics
 import android.util.Log
-import com.sp.uxpulse.analytics.ApplicationSession
 import com.sp.uxpulse.analytics.UxPulseConfig
+import javax.inject.Inject
 
 
-class DevicePayload(
-    private var applicationSession: ApplicationSession,
-    private var uxPulseConfig: UxPulseConfig,
+class DevicePayload @Inject constructor(
+    var context: Context,
+    var uxPulseConfig: UxPulseConfig,
 ) {
 
     val deviceMap: MutableMap<String, Any> = mutableMapOf()
 
     init {
-        addAppData(applicationSession.getApplicationContext())
+        addAppData(context)
         addDeviceData()
     }
 
     private fun addAppData(context: Context) {
         try {
             val packageManager: PackageManager = context.packageManager
-            val packageInfo: PackageInfo =
-                packageManager.getPackageInfo(context.packageName, 0)
+            val packageInfo: PackageInfo = packageManager.getPackageInfo(context.packageName, 0)
             val app: MutableMap<String, Any> = mutableMapOf()
             app[KEY_APP_NAME] = packageInfo.applicationInfo.loadLabel(packageManager)
 
@@ -52,9 +51,8 @@ class DevicePayload(
         mutableDeviceInfo[KEY_DEVICE_MODEL] = if (Build.MODEL == null) "UNKNOWN" else Build.MODEL
 
         try {
-            val manager: PackageManager = applicationSession.getApplicationContext().packageManager
-            val info: PackageInfo =
-                manager.getPackageInfo(applicationSession.getApplicationContext().packageName, 0)
+            val manager: PackageManager = context.packageManager
+            val info: PackageInfo = manager.getPackageInfo(context.packageName, 0)
             mutableDeviceInfo[KEY_APP_VERSION] = info.versionName
             mutableDeviceInfo[KEY_APP_VERSION_CODE] = info.versionCode.toString()
         } catch (e: PackageManager.NameNotFoundException) {
@@ -65,8 +63,7 @@ class DevicePayload(
 
         // Screen data
         val screen: MutableMap<String, Any> = mutableMapOf()
-        val displayMetrics: DisplayMetrics =
-            applicationSession.getApplicationContext().resources.displayMetrics
+        val displayMetrics: DisplayMetrics = context.resources.displayMetrics
 
         screen[KEY_SCREEN_DENSITY] = displayMetrics.density
         screen[KEY_SCREEN_HEIGHT] = displayMetrics.heightPixels
