@@ -1,8 +1,8 @@
 import java.util.Properties
 
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.jetbrains.kotlin.android)
     id("maven-publish")
     id("kotlin-kapt")
 }
@@ -72,7 +72,7 @@ dependencies {
 }
 
 group = "com.github.sujan6539"
-version = "2.0.1"
+version = "2.0.2"
 
 
 afterEvaluate {
