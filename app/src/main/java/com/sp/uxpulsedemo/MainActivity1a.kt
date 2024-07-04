@@ -1,6 +1,5 @@
 package com.sp.uxpulsedemo
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -21,11 +20,17 @@ class MainActivity1a : AppCompatActivity() {
             insets
         }
 
-        (applicationContext as MainApplication).usPulseTracker.trackScreenViewEvent("Explore", this::class.java.simpleName,)
+        (applicationContext as MainApplication).usPulseTracker.trackScreenViewEvent(
+            "Profile",
+            this::class.java.simpleName,
+        )
 
         activityMainActivity1aBinding.btnGoTo.setOnClickListener {
-            (applicationContext as MainApplication).usPulseTracker.trackClickEvent("Done","Explore")
-            startActivity(Intent(this@MainActivity1a, MainActivity3::class.java))
+            (applicationContext as MainApplication).usPulseTracker.trackClickEvent(
+                "Done",
+                "Profile"
+            )
+            finish()
         }
     }
 }

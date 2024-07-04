@@ -36,15 +36,9 @@ class UxPulseTracker private constructor(
         appComponent = DaggerLibAppComponent.builder().libAppModule(
             LibAppModule(applicationSession.getApplicationContext(), config)
         ).build()
-
         appComponent.inject(this)
 
-
-        if (!config.instantPushEvent) {
-            DatabaseManager.getInstance(applicationSession.getApplicationContext())
-        }
-
-        attachLifecycleToSession(applicationSession)
+        DatabaseManager.getInstance(applicationSession.getApplicationContext())
         eventProcessor.processEvent(
             StateAction(
                 type = EventType.Track(AutomaticEvents.FIRST_OPEN),

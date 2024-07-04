@@ -20,10 +20,10 @@ class MainActivity3 : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        (applicationContext as MainApplication).usPulseTracker.trackScreenViewEvent("Payment", this::class.java.simpleName,)
+        (applicationContext as MainApplication).usPulseTracker.trackScreenViewEvent("Buy", this::class.java.simpleName,)
 
         ac.btnGoTo.setOnClickListener {
-            (applicationContext as MainApplication).usPulseTracker.trackClickEvent("Payment Confirmed","Payment")
+            (applicationContext as MainApplication).usPulseTracker.trackClickEvent("Buy Confirmed","Buy")
             startActivity(Intent(this@MainActivity3, MainActivity4::class.java))
 
         }

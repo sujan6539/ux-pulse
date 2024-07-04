@@ -23,7 +23,7 @@ class FirstFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         (activity?.applicationContext as? MainApplication)?.usPulseTracker?.trackScreenViewEvent(
-            "First fragment",
+            "Explore List",
             this::class.java.simpleName,
         )
 

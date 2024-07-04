@@ -69,7 +69,7 @@ class EventProcessor private constructor(
 
     @WorkerThread
     private fun enqueueEvents() {
-        val periodicWorkRequest = PeriodicWorkRequestBuilder<BatchEventWorker>(1, TimeUnit.MINUTES)
+        val periodicWorkRequest = PeriodicWorkRequestBuilder<BatchEventWorker>(5, TimeUnit.MINUTES)
             .build()
 
         WorkManager.getInstance(appContext).enqueueUniquePeriodicWork(

@@ -1,6 +1,5 @@
 package com.sp.uxpulsedemo
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -22,7 +21,7 @@ class SecondFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (activity?.applicationContext as? MainApplication)?.usPulseTracker?.trackScreenViewEvent(
-            "Second fragment",
+            "Detail Page",
             this::class.java.simpleName,
         )
     }
@@ -45,7 +44,7 @@ class SecondFragment : Fragment() {
                 "BTN Send",
                 "Second Fragment"
             )
-            startActivity(Intent(activity, MainActivity1a::class.java))
+            activity?.finish()
         }
 
     }

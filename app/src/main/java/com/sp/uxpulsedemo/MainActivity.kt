@@ -23,13 +23,19 @@ class MainActivity : AppCompatActivity() {
 
 
         activityMainBinding.btnGoTo.setOnClickListener {
-            (applicationContext as MainApplication).usPulseTracker.trackClickEvent("go to second clicked", "Home")
+            (applicationContext as MainApplication).usPulseTracker.trackClickEvent("Explore List", "Home")
             startActivity(Intent(this@MainActivity, MainActivity2::class.java))
 
         }
 
         activityMainBinding.btnGoTo3.setOnClickListener {
-            (applicationContext as MainApplication).usPulseTracker.trackClickEvent("go to third clicked", "Home")
+            (applicationContext as MainApplication).usPulseTracker.trackClickEvent("Checkout flow", "Home")
+            startActivity(Intent(this@MainActivity, MainActivity3::class.java))
+
+        }
+
+        activityMainBinding.btnGoToProfile.setOnClickListener {
+            (applicationContext as MainApplication).usPulseTracker.trackClickEvent("Profile", "Home")
             startActivity(Intent(this@MainActivity, MainActivity1a::class.java))
 
         }
