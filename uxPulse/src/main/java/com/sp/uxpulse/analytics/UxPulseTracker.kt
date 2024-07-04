@@ -9,6 +9,7 @@ import com.sp.uxpulse.di.LibAppComponent
 import com.sp.uxpulse.di.LibAppModule
 import com.sp.uxpulse.middleware.EventProcessor
 import com.sp.uxpulse.payload.EventType
+import com.sp.uxpulse.payload.Events
 import com.sp.uxpulse.payload.StateAction
 import com.sp.uxpulse.payload.TrackAction
 import com.sp.uxpulse.session.SessionManager
@@ -41,15 +42,14 @@ class UxPulseTracker private constructor(
         DatabaseManager.getInstance(applicationSession.getApplicationContext())
         eventProcessor.processEvent(
             StateAction(
-                type = EventType.Track(AutomaticEvents.FIRST_OPEN),
-                name = AutomaticEvents.FIRST_OPEN,
+                type = EventType.Track(Events.FIRST_OPEN),
+                name = Events.FIRST_OPEN,
                 properties = mapOf(),
                 timestamp = TIMESTAMP_TIMEZONE_OFFSET,
             )
         )
 
     }
-
 
     fun startSession() {
         sessionManager?.startSession()
@@ -59,11 +59,12 @@ class UxPulseTracker private constructor(
         sessionManager?.stopSession()
     }
 
-    fun trackState(name: String, contextData: Map<String, String>?) {
+    fun trackState(name: String, contextData: Map<String, Any>?) {
         val stateAction = StateAction(
             type = EventType.State(name),
             name,
-            contextData ?: mapOf(),
+            (sessionManager?.sessionMetadata?.metadataForEvent ?: mapOf()) + (contextData
+                ?: mapOf()),
             TIMESTAMP_TIMEZONE_OFFSET,
         )
         eventProcessor.processEvent(stateAction)
@@ -73,7 +74,8 @@ class UxPulseTracker private constructor(
         val data = TrackAction(
             type = type,
             name = action,
-            properties = contextData ?: mapOf(),
+            properties = (sessionManager?.sessionMetadata?.metadataForEvent
+                ?: mapOf()) + (contextData ?: mapOf()),
             timestamp = TIMESTAMP_TIMEZONE_OFFSET,
         )
         eventProcessor.processEvent(data)
@@ -98,7 +100,8 @@ class UxPulseTracker private constructor(
 
         val stateAction = StateAction(
             name = screenName,
-            properties = additionalContext,
+            properties = (sessionManager?.sessionMetadata?.metadataForEvent
+                ?: mapOf()) + additionalContext,
             timestamp = TIMESTAMP_TIMEZONE_OFFSET,
         )
         eventProcessor.processEvent(stateAction)
@@ -113,7 +116,8 @@ class UxPulseTracker private constructor(
         val data = TrackAction(
             type = EventType.Track("on_click"),
             name = buttonId,
-            properties = additionalContext,
+            properties = (sessionManager?.sessionMetadata?.metadataForEvent
+                ?: mapOf()) + additionalContext,
             timestamp = TIMESTAMP_TIMEZONE_OFFSET
         )
 

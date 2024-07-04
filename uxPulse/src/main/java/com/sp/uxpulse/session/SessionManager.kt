@@ -7,8 +7,7 @@ import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
-import com.sp.uxpulse.analytics.AutomaticEvents
-import com.sp.uxpulse.analytics.AutomaticEvents.SESSION_PAUSED_LENGTH
+import com.sp.uxpulse.payload.Events
 import com.sp.uxpulse.analytics.UxPulseTracker
 import com.sp.uxpulse.breadcrumbs.BreadcrumbManager
 import com.sp.uxpulse.session.SessionMetadata.Companion.CHECK_DELAY
@@ -21,7 +20,8 @@ import org.json.JSONException
 
 class SessionManager(private val tracker: UxPulseTracker) :
     Application.ActivityLifecycleCallbacks, FragmentManager.FragmentLifecycleCallbacks() {
-    private var sessionMetadata: SessionMetadata? = null
+
+    var sessionMetadata: SessionMetadata? = null
 
     fun startSession() {
         if (sessionMetadata == null) {
@@ -31,6 +31,10 @@ class SessionManager(private val tracker: UxPulseTracker) :
                 mIsForeground = true
             }
         }
+        tracker.trackState(
+            Events.SESSION_STARTED,
+            sessionMetadata?.metadataForEvent ?: mapOf()
+        )
     }
 
     fun stopSession() {
@@ -39,7 +43,7 @@ class SessionManager(private val tracker: UxPulseTracker) :
             isSessionActive = false
             val sessionEndTime = System.currentTimeMillis()
             val sessionDuration = sessionEndTime - mSessionStartEpoch
-            trackSessionDuration(AutomaticEvents.SESSION_LENGTH, sessionDuration)
+            trackSessionDuration(Events.SESSION_STOPPED, sessionDuration)
             sessionMetadata = null
         }
     }
@@ -90,7 +94,7 @@ class SessionManager(private val tracker: UxPulseTracker) :
                     if (isSessionActive) {
                         val sessionEndTime = System.currentTimeMillis()
                         val sessionDuration = sessionEndTime - mSessionStartEpoch
-                        trackSessionDuration(SESSION_PAUSED_LENGTH, sessionDuration)
+                        trackSessionDuration(Events.SESSION_PAUSED, sessionDuration)
                     }
 
                 }

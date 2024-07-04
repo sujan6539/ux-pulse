@@ -2,7 +2,6 @@ package com.sp.uxpulse.session
 
 import android.util.Log
 import org.json.JSONException
-import org.json.JSONObject
 import java.security.SecureRandom
 
 
@@ -28,16 +27,16 @@ class SessionMetadata {
         mSessionStartEpoch = System.currentTimeMillis() / 1000
     }
 
-    val metadataForEvent: JSONObject
+    val metadataForEvent: Map<String, Any>
         get() = getNewMetadata()
 
 
-    private fun getNewMetadata(): JSONObject {
-        val metadataJson = JSONObject()
+    private fun getNewMetadata(): Map<String, Any> {
+        val metadataJson = mutableMapOf<String, Any>()
         try {
-            metadataJson.put(KEY_EVENT_ID, java.lang.Long.toHexString(mRandom.nextLong()))
-            metadataJson.put(KEY_SESSION_ID, mSessionID)
-            metadataJson.put(KEY_SESSION_START_ID, mSessionStartEpoch)
+            metadataJson[KEY_EVENT_ID] = java.lang.Long.toHexString(mRandom.nextLong())
+            metadataJson[KEY_SESSION_ID] = mSessionID ?: ""
+            metadataJson[KEY_SESSION_START_ID] = mSessionStartEpoch
             mEventsCounter++
         } catch (e: JSONException) {
             e.printStackTrace()
