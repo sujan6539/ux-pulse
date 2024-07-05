@@ -77,6 +77,7 @@ UxPulse uses Firebase Realtime Database, as a server database to store all event
 
         }
 
+    // set instantPushEvent to true, if you want instant push to the server. 
     val uxPulseConfig = UxPulseConfig(
             apiKey = RANDOM_API_KEY,
             projectId = applicationContext.packageName,
